@@ -47,16 +47,17 @@ userSchema.statics.signup = async function(name, email, password, phone_number, 
   if (!name || !email || !password || !phone_number || !gender || !date_of_birth || !membership_status) {
     throw Error('All fields must be filled')
   }
+
+  // Name validation 
+  if (!validator.isAlpha(name.replace(/\s/g, '')) || name.length < 2) {
+    throw Error('Name must contain only letters and be at least 2 characters long');
+  }
   if (!validator.isEmail(email)) {
     throw Error('Email not valid')
   }
 
   if (!validator.isStrongPassword(password)) {
     throw Error('Password not strong enough')
-  }
-  // Name validation 
-  if (!validator.isAlpha(name.replace(/\s/g, '')) || name.length < 2) {
-    throw Error('Name must contain only letters and be at least 2 characters long');
   }
 
   // Phone number validation 
@@ -84,7 +85,7 @@ userSchema.statics.signup = async function(name, email, password, phone_number, 
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ email, password: hash, phone_number, gender, date_of_birth, membership_status })
+  const user = await this.create({name, email, password: hash, phone_number, gender, date_of_birth, membership_status })
 
   return user
 }
