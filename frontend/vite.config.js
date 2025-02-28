@@ -10,24 +10,24 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'http://localhost:4000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+       // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
 });
 
 
-// export default defineConfig({
-//   plugins: [react()],
-//   server: {
-//     port: 3000,
-//     proxy: {
-//       "/api": {
-//         target: "http://localhost:4000",
-//         changeOrigin: true,
-//       },
-//     },
-//   },
-// });
+ /*export default defineConfig({
+   plugins: [react()],
+  server: {
+    port: 3000,
+     proxy: {
+      "/api": {
+         target: "http://localhost:4000",
+         changeOrigin: true,
+       },
+     },
+   },
+ });*/
