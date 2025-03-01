@@ -49,13 +49,13 @@ import "./Signup.css"; // ✅ Import CSS file
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
-    phone: "",
     password: "",
-    confirmPassword: "",
+    phone_number: "",
     gender: "",
+    date_of_birth: "",
+    membership_status: "",
   });
 
   const [error, setError] = useState(""); // To store error messages
@@ -65,13 +65,13 @@ const Signup = () => {
   // ✅ Reset form state when the component loads
   useEffect(() => {
     setFormData({
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
-      phone: "",
       password: "",
-      confirmPassword: "",
+      phone_number: "",
       gender: "",
+      date_of_birth: "",
+      membership_status: "",
     });
 
     // ✅ Clear local storage to prevent autofill issues
@@ -87,15 +87,15 @@ const Signup = () => {
     setError(""); // Clears previous errors
     setSuccess(""); // Clears previous success messages
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match!");
-      return;
-    }
+   // if (formData.password !== formData.confirmPassword) {
+    //  setError("Passwords do not match!");
+    //  return;
+   // }
 
     try {
       console.log("Submitting Data:", formData); // ✅ Debugging log
 
-      const response = await fetch("http://localhost:4000/api/auth/signup", {
+      const response = await fetch("http://localhost:4000/api/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -127,42 +127,26 @@ const Signup = () => {
           <div className="form-group">
             <input
               type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
+              name="name"
+              placeholder="Name"
+              value={formData.name}
               onChange={handleChange}
               autoComplete="off"
               required
             />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
+           
           </div>
           <div className="form-group">
             <input
               type="email"
               name="email"
-              placeholder="Email Id"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
               autoComplete="off"
               required
             />
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-              autoComplete="off"
-              required
-            />
+           
           </div>
           <div className="form-group">
             <input
@@ -174,16 +158,20 @@ const Signup = () => {
               autoComplete="new-password" // ✅ Ensures browsers don't save passwords
               required
             />
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
+            
+          </div>
+          <div>
+          <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              value={formData.phone}
               onChange={handleChange}
-              autoComplete="new-password"
+              autoComplete="off"
               required
             />
           </div>
+          <div>
           <input
             type="text"
             name="gender"
@@ -193,6 +181,34 @@ const Signup = () => {
             autoComplete="off"
             required
           />
+
+          </div>
+          <div>
+          <input
+            type="text"
+            name="date_of_birth"
+            placeholder="Date of Birth"
+            value={formData.date_of_birth}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+
+          </div>
+          <div>
+          <input
+            type="text"
+            name="membership_status"
+            placeholder="membership_status"
+            value={formData.membership_status}
+            onChange={handleChange}
+            autoComplete="off"
+            required
+          />
+
+          </div>
+         
+
           <button type="submit">Register</button>
         </form>
       </div>
