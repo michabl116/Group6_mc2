@@ -65,13 +65,13 @@ userSchema.statics.signup = async function(name, email, password, phone_number, 
     throw Error('Invalid phone number');
   }
 
-  // Gender validation 
-  const allowedGenders = ["Male", "Female", "Other"];
-  if (!allowedGenders.includes(gender)) {
-    throw Error('Invalid gender value');
-  }
+  // // Gender validation 
+  // const allowedGenders = ["Male", "Female", "Other"];
+  // if (!allowedGenders.includes(gender)) {
+  //   throw Error('Invalid gender value');
+  // }
 
-  // Date of birth validation (ensure it's a valid date and not in the future)
+  // Date of birth validation (ensure it's a valid date and not in the future) //"YYYY-MM-DD"
   if (!validator.isDate(date_of_birth.toString()) || new Date(date_of_birth) > new Date()) {
     throw Error('Invalid date of birth');
   }
