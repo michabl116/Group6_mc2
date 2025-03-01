@@ -11,6 +11,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import JobPage, { jobLoader } from './pages/JobPage';
 import AddJobPage from './pages/AddJobPage';
 import EditJobPage from './pages/EditJobPage';
+import Login from './pages/Login'; // ✅ Import Login
+import Signup from './pages/Signup'; // ✅ Import Signup
 
 const App = () => {
   // Add New Job
@@ -61,6 +63,8 @@ const App = () => {
           element={<JobPage deleteJob={deleteJob} />}
           loader={jobLoader}
         />
+        <Route path='/login' element={<Login />} />  {/* ✅ Added Login Route */}
+        <Route path='/signup' element={<Signup />} />  {/* ✅ Added Signup Route */}
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     )
@@ -68,4 +72,5 @@ const App = () => {
 
   return <RouterProvider router={router} />;
 };
+
 export default App;
