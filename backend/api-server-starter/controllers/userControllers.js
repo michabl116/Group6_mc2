@@ -6,9 +6,9 @@ const jwt = require('jsonwebtoken');
 const registerUser = async (req, res) => {
   console.log('Request received:', req.body); // Pyyntö vastaanotettu
   try {
-    const { name, email, phone, password, phone_number, gender, date_of_birth, membership_status } = req.body;
+    const { name, email, phone_number, password, gender, date_of_birth, membership_status } = req.body;
     // 🔹 Tarkista, että kentät eivät ole tyhjiä ,  //Validate that the fields are not empty 
-    if (!name || !email || !phone || !password || !phone_number || !gender || !date_of_birth || !membership_status) {
+    if (!name || !email || !phone_number || !password || !gender || !date_of_birth || !membership_status) {
       return res.status(400).json({ message: 'All fields are required.' }); // Kaikki kentät ovat pakollisia ,// All fields are required.
     }
     // 🔹 Tarkista, onko käyttäjä jo olemassa ,Check if the user already exists 
@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password - Salaa salasana
 
-    const newUser = new User({ name, email, phone, password: hashedPassword, phone_number, gender, date_of_birth, membership_status });
+    const newUser = new User({ name, email, phone, password: hashedPassword, gender, date_of_birth, membership_status });
     await newUser.save(); 
     
     // Generate JWT token
@@ -31,8 +31,8 @@ const registerUser = async (req, res) => {
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
-        phone: newUser.phone,
-        phone_number: newUser.phone_number,
+        phone_number: newUser.phone,
+        password:newUser.password,
         gender: newUser.gender,
         date_of_birth: newUser.date_of_birth,
         membership_status: newUser.membership_status
