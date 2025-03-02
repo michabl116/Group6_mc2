@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password - Salaa salasana
 
-    const newUser = new User({ name, email, phone, password: hashedPassword, gender, date_of_birth, membership_status });
+    const newUser = new User({ name, email, phone_number, password: hashedPassword, gender, date_of_birth, membership_status });
     await newUser.save(); 
     
     // Generate JWT token
@@ -31,8 +31,7 @@ const registerUser = async (req, res) => {
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
-        phone_number: newUser.phone,
-        password:newUser.password,
+        phone_number: newUser.phone_number,
         gender: newUser.gender,
         date_of_birth: newUser.date_of_birth,
         membership_status: newUser.membership_status
