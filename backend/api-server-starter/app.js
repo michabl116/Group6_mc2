@@ -2,11 +2,12 @@ require('dotenv').config()
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const userRouter = require("./routes/userRouter");
+//const userRouter = require("./routes/userRouter");
 const { unknownEndpoint,errorHandler } = require("./middleware/customMiddleware");
 const connectDB = require("./config/db");
 const cors = require("cors");
 const jobRoutes = require("./routes/jobRoutes");
+const userRouter = require("./routes/userfRouter");
 
 
 // Middlewares
@@ -19,7 +20,8 @@ connectDB();
 // Use the userRouter for all /users routes
 // app.use("/api/users", userRouter);
 app.use('/api/jobs', jobRoutes);
-app.use('/api', userRouter); // Usa las rutas bajo el prefijo /api
+//app.use('/api', userRouter); Michael
+app.use("/api/users", userRouter); //Farnaz
 app.use(unknownEndpoint);
 app.use(errorHandler);
 
